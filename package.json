@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "server": "nodemon backend/server.js",
+=======
+>>>>>>> 940afc43f8effa30299b74cfc0b55c678fe0f636
     "start": "node backend/server.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
