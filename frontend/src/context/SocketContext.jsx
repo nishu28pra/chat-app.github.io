@@ -16,8 +16,6 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (authUser) {
-            console.log("Connecting to socket with userId:", authUser._id);
-
             const socket = io("https://live-chat-app-qhfc.onrender.com", {
                 query: {
                     userId: authUser._id,
@@ -26,25 +24,14 @@ export const SocketContextProvider = ({ children }) => {
 
             setSocket(socket);
 
-            socket.on("connect", () => {
-                console.log("Socket connected:", socket.id);
-            });
-
             socket.on("getOnlineUsers", (users) => {
                 setOnlineUsers(users);
             });
 
-            socket.on("connect_error", (err) => {
-                console.error("Socket connection error:", err);
-            });
+            return () => socket.close();
 
-            return () => {
-                console.log("Closing socket...");
-                socket.close();
-            };
         } else {
             if (socket) {
-                console.log("No authUser, closing socket...");
                 socket.close();
                 setSocket(null);
             }
